@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const HomeAction = () => {
   return (
-    <div className="fixed bottom-2 right-8 text-5xl cursor-pointer">
+    <div className="fixed bottom-2 right-8 text-5xl cursor-pointer" title='Tambahkan catatan'>
       <Link to="/notes/new">
         <AiOutlinePlusCircle />
       </Link>
