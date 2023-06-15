@@ -19,8 +19,21 @@ const NoteApp = () => {
     setNotes(filteredNotes);
   }, [keyword]);
 
-  const onSearch = (e) => {
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchKeyword = searchParams.get('keyword');
+    setKeyword(searchKeyword || '');
+  }, []);
+
+  const onSearchHandler = (e) => {
     setKeyword(e.target.value);
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('keyword', e.target.value);
+    window.history.replaceState(
+      {},
+      '',
+      `${window.location.pathname}?${searchParams.toString()}`
+    );
   };
 
   const onDeleteHandler = (id) => {
@@ -55,7 +68,7 @@ const NoteApp = () => {
     <div className="relative">
       <h2 className="text-center text-2xl text-blue-400">Daftar Catatan</h2>
 
-      <SearchNote onChangeHandler={onSearch} keyword={keyword} />
+      <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
       {notes.length > 0 ? (
         <NoteList
           notes={notes}

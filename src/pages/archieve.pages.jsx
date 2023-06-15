@@ -18,6 +18,23 @@ const Archive = () => {
     setArchivedNotes(filteredNotes);
   }, [keyword]);
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchKeyword = searchParams.get('keyword');
+    setKeyword(searchKeyword || '');
+  }, []);
+
+  const onSearchHandler = (e) => {
+    setKeyword(e.target.value);
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('keyword', e.target.value);
+    window.history.replaceState(
+      {},
+      '',
+      `${window.location.pathname}?${searchParams.toString()}`
+    );
+  };
+
   const onUnarchiveHandler = (id) => {
     unarchiveNote(id);
     setArchivedNotes(getArchivedNotes(id));
@@ -46,15 +63,9 @@ const Archive = () => {
     });
   };
 
-  const onSearchHandler = (e) => {
-    setKeyword(e.target.value);
-  };
-
   return (
     <div className="container mx-auto mt-6">
-      <h1 className="text-center text-secondary text-2xl">
-        Catatan Arsip
-      </h1>
+      <h1 className="text-center text-secondary text-2xl">Catatan Arsip</h1>
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
       <NoteList
         notes={archivedNotes}
