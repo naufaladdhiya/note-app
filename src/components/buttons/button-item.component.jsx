@@ -23,7 +23,7 @@ const ButtonAction = ({ id, onDelete, onArchive, archived, onUnarchive }) => {
             onClick={() => {
               onUnarchive(id);
             }}
-            title="Unarchive Note"
+            title="Aktifkan catatan"
           >
             <BiArchiveOut />
           </button>
@@ -33,7 +33,7 @@ const ButtonAction = ({ id, onDelete, onArchive, archived, onUnarchive }) => {
             onClick={() => {
               onArchive(id);
             }}
-            title="Archive Note"
+            title="Arsipkan catatan"
           >
             <BiArchiveIn />
           </button>

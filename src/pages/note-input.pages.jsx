@@ -1,17 +1,31 @@
 import { addNote } from '../utils/local-data';
 import { AiFillCheckCircle } from 'react-icons/ai';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const NoteInput = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const formRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     addNote({ title, body: content });
+    formRef.current.reset();
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Catatan berhasil ditambahkan',
+      width: 300,
+      toast: true,
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const handleTitleChange = (event) => {
+    setTitle('');
+    setContent('');
     setTitle(event.target.value);
   };
 
@@ -22,7 +36,7 @@ const NoteInput = () => {
   return (
     <div className="container mx-auto justify-center items-center mt-6">
       <h1 className="text-2xl text-center text-secondary">Tambahkan catatan</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <input
           type="text"
           placeholder="Judul..."

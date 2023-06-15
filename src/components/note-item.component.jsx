@@ -13,13 +13,13 @@ const NoteItem = ({
   archieved,
 }) => {
   return (
-    <div className="card w-72 bg-primary-focus shadow-xl relative">
+    <div className="card bg-primary-focus shadow-xl relative">
       <div className="card-body flex-grow-0">
         <h2 className="card-title text-secondary">
           <Link to={`/notes/${id}`}>{title}</Link>
         </h2>
-        <p>{showFormattedDate(createdAt)}</p>
-        <p className="mb-5">{body}</p>
+        <p className='text-warning'>{showFormattedDate(createdAt)}</p>
+        <p className="pb-5">{body}</p>
         <div className="absolute bottom-3 right-6">
           <div className="card-actions justify-end text-2xl">
             <ButtonAction

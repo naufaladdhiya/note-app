@@ -8,12 +8,11 @@ import {
 import SearchNote from './search-note.component';
 import NoteList from './note-list.component';
 import HomeAction from './buttons/button-home-action.component';
+import Swal from 'sweetalert2';
 
 const NoteApp = () => {
   const [notes, setNotes] = useState((id) => getActiveNotes(id));
   const [keyword, setKeyword] = useState('');
-
-  console.log(notes);
 
   useEffect(() => {
     const filteredNotes = searchNotes(getActiveNotes(), keyword);
@@ -27,17 +26,35 @@ const NoteApp = () => {
   const onDeleteHandler = (id) => {
     deleteNote(id);
     setNotes(getActiveNotes(id));
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Catatan berhasil dihapus',
+      width: 300,
+      toast: true,
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const onArchiveHandler = (id) => {
     archiveNote(id);
     setNotes(getActiveNotes(id));
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Catatan berhasil diarsipkan',
+      width: 300,
+      toast: true,
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
-
- 
 
   return (
     <div className="relative">
+      <h2 className="text-center text-2xl text-blue-400">Daftar Catatan</h2>
+
       <SearchNote onChangeHandler={onSearch} keyword={keyword} />
       {notes.length > 0 ? (
         <NoteList
