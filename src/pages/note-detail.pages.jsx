@@ -1,9 +1,10 @@
-import { getNote } from '../utils/local-data';
-import { showFormattedDate } from '../utils/index';
+import React, { useEffect, useState } from 'react';
+import Proptypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { getNote } from '../utils/local-data';
+import showFormattedDate from '../utils/index';
 
-const NoteDetail = ({ title, body, createdAt }) => {
+function NoteDetail({ title, body, createdAt }) {
   return (
     <div className="container mx-auto flex flex-col justify-center items-center mt-7">
       <div className="card w-full bg-primary-focus shadow-xl">
@@ -19,17 +20,17 @@ const NoteDetail = ({ title, body, createdAt }) => {
       </div>
     </div>
   );
-};
+}
 
-const DetailNotFound = () => {
+function DetailNotFound() {
   return (
     <div className="container mx-auto flex flex-col justify-center items-center mt-7">
-      <p className='text-2xl'>Note not found</p>
+      <p className="text-2xl">Note not found</p>
     </div>
   );
-};
+}
 
-const DetailNotePage = () => {
+function DetailNotePage() {
   const { id } = useParams();
   const [note, setNote] = useState(() => getNote(id));
   useEffect(() => {
@@ -41,6 +42,12 @@ const DetailNotePage = () => {
   }
 
   return <NoteDetail {...note} />;
-};
+}
 
 export default DetailNotePage;
+
+NoteDetail.propTypes = {
+  title: Proptypes.string.isRequired,
+  body: Proptypes.string.isRequired,
+  createdAt: Proptypes.string.isRequired,
+};

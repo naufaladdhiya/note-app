@@ -1,9 +1,9 @@
-import { addNote } from '../utils/local-data';
-import { AiFillCheckCircle } from 'react-icons/ai';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Swal from 'sweetalert2';
+import { AiFillCheckCircle } from 'react-icons/ai';
+import { addNote } from '../utils/local-data';
 
-const NoteInput = () => {
+function NoteInput() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const formRef = useRef(null);
@@ -60,6 +60,6 @@ const NoteInput = () => {
       </form>
     </div>
   );
-};
+}
 
 export default NoteInput;

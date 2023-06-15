@@ -92,7 +92,7 @@ function unarchiveNote(id) {
 }
 
 function searchNotes(notes, keyword) {
-  return notes.filter(note => note.title.toLowerCase().includes(keyword.toLowerCase()))
+  return notes.filter((note) => note.title.toLowerCase().includes(keyword.toLowerCase()));
 }
 
 function editNote({ id, title, body }) {

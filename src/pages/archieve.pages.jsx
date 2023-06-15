@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, React } from 'react';
+import Swal from 'sweetalert2';
 import {
   getArchivedNotes,
   unarchiveNote,
@@ -7,9 +8,8 @@ import {
 } from '../utils/local-data';
 import NoteList from '../components/note-list.component';
 import SearchNote from '../components/search-note.component';
-import Swal from 'sweetalert2';
 
-const Archive = () => {
+function Archive() {
   const [archivedNotes, setArchivedNotes] = useState(() => getArchivedNotes());
   const [keyword, setKeyword] = useState('');
 
@@ -31,7 +31,7 @@ const Archive = () => {
     window.history.replaceState(
       {},
       '',
-      `${window.location.pathname}?${searchParams.toString()}`
+      `${window.location.pathname}?${searchParams.toString()}`,
     );
   };
 
@@ -71,10 +71,10 @@ const Archive = () => {
         notes={archivedNotes}
         onUnarchive={onUnarchiveHandler}
         onDelete={onDeleteHandler}
-        archived={true}
+        archived
       />
     </div>
   );
-};
+}
 
 export default Archive;

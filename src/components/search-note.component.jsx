@@ -1,4 +1,7 @@
-const SearchNote = ({ onChangeHandler, keyword }) => {
+import React from 'react';
+import PropTypes from 'prop-types';
+
+function SearchNote({ onChangeHandler, keyword }) {
   return (
     <div className="input-note">
       <input
@@ -11,6 +14,11 @@ const SearchNote = ({ onChangeHandler, keyword }) => {
       />
     </div>
   );
-};
+}
 
 export default SearchNote;
+
+SearchNote.propTypes = {
+  onChangeHandler: PropTypes.func.isRequired,
+  keyword: PropTypes.string.isRequired,
+};

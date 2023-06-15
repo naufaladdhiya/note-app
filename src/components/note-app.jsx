@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, React } from 'react';
+import Swal from 'sweetalert2';
 import {
   searchNotes,
   deleteNote,
@@ -8,9 +9,8 @@ import {
 import SearchNote from './search-note.component';
 import NoteList from './note-list.component';
 import HomeAction from './buttons/button-home-action.component';
-import Swal from 'sweetalert2';
 
-const NoteApp = () => {
+function NoteApp() {
   const [notes, setNotes] = useState((id) => getActiveNotes(id));
   const [keyword, setKeyword] = useState('');
 
@@ -32,7 +32,7 @@ const NoteApp = () => {
     window.history.replaceState(
       {},
       '',
-      `${window.location.pathname}?${searchParams.toString()}`
+      `${window.location.pathname}?${searchParams.toString()}`,
     );
   };
 
@@ -86,6 +86,6 @@ const NoteApp = () => {
       </div>
     </div>
   );
-};
+}
 
 export default NoteApp;
