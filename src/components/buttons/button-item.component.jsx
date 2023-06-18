@@ -4,12 +4,12 @@ import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 
 function ButtonAction({
-  id, onDelete, onArchive, archived, onUnarchive,
+  id, onDelete, onArchive, archived,
 }) {
   return (
     <div className="flex gap-3">
       <button
-        className="bg-red-500 p-1 rounded-lg text-slate-400"
+        className="p-1 bg-red-500 rounded-lg text-slate-400"
         type="button"
         onClick={() => {
           onDelete(id);
@@ -19,15 +19,15 @@ function ButtonAction({
         <BsFillTrashFill />
       </button>
       <div
-        className="bg-green-500 p-1 rounded-lg text-slate-500"
+        className="p-1 bg-green-500 rounded-lg text-slate-500"
         title="Arsipkan Catatan"
       >
         {archived === true ? (
           <button
-            className="bg-green-500 p-1 rounded-lg text-slate-500"
+            className="p-1 bg-green-500 rounded-lg text-slate-500"
             type="button"
             onClick={() => {
-              onUnarchive(id);
+              onArchive(id);
             }}
             title="Aktifkan catatan"
           >
@@ -35,7 +35,7 @@ function ButtonAction({
           </button>
         ) : (
           <button
-            className="bg-green-500 p-1 rounded-lg text-slate-500"
+            className="p-1 bg-green-500 rounded-lg text-slate-500"
             type="button"
             onClick={() => {
               onArchive(id);
@@ -53,9 +53,8 @@ function ButtonAction({
 export default ButtonAction;
 
 ButtonAction.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
-  onUnarchive: PropTypes.func.isRequired,
   archived: PropTypes.bool.isRequired,
 };

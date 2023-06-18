@@ -11,25 +11,23 @@ function NoteItem({
   createdAt,
   onDelete,
   onArchive,
-  onUnarchive,
   archieved,
 }) {
   return (
-    <div className="card bg-primary-focus shadow-xl relative">
-      <div className="card-body flex-grow-0">
+    <div className="relative shadow-xl card bg-primary-focus">
+      <div className="flex-grow-0 card-body">
         <h2 className="card-title text-secondary">
           <Link to={`/notes/${id}`}>{title}</Link>
         </h2>
         <p className="text-warning">{showFormattedDate(createdAt)}</p>
         <p className="pb-5">{body}</p>
         <div className="absolute bottom-3 right-6">
-          <div className="card-actions justify-end text-2xl">
+          <div className="justify-end text-2xl card-actions">
             <ButtonAction
               id={id}
               onDelete={onDelete}
               onArchive={onArchive}
               archieved={archieved}
-              onUnarchive={onUnarchive}
               archived={archieved}
             />
           </div>
@@ -42,12 +40,11 @@ function NoteItem({
 export default NoteItem;
 
 NoteItem.propTypes = {
-  id: Proptypes.number.isRequired,
+  id: Proptypes.string.isRequired,
   title: Proptypes.string.isRequired,
   body: Proptypes.string.isRequired,
   createdAt: Proptypes.string.isRequired,
   onDelete: Proptypes.func.isRequired,
   onArchive: Proptypes.func.isRequired,
-  onUnarchive: Proptypes.func.isRequired,
   archieved: Proptypes.bool.isRequired,
 };

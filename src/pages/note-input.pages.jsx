@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useState } from 'react';
 import Swal from 'sweetalert2';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -34,13 +35,13 @@ function NoteInput() {
   };
 
   return (
-    <div className="container mx-auto justify-center items-center mt-6">
+    <div className="container items-center justify-center mx-auto mt-6">
       <h1 className="text-2xl text-center text-secondary">Tambahkan catatan</h1>
       <form onSubmit={handleSubmit} ref={formRef}>
         <input
           type="text"
           placeholder="Judul..."
-          className="input input-bordered input-primary w-full mt-4 pl-6 text-slate-400"
+          className="w-full pl-6 mt-4 input input-bordered input-primary text-slate-400"
           onChange={handleTitleChange}
         />
         <input
@@ -51,7 +52,7 @@ function NoteInput() {
         />
         <button type="submit">
           <div
-            className="fixed bottom-2 right-8 text-5xl cursor-pointer"
+            className="fixed text-5xl cursor-pointer bottom-2 right-8"
             title="Selesai"
           >
             <AiFillCheckCircle />

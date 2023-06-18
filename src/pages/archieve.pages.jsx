@@ -69,7 +69,7 @@ function Archive() {
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
       <NoteList
         notes={archivedNotes}
-        onUnarchive={onUnarchiveHandler}
+        onArchive={onUnarchiveHandler}
         onDelete={onDeleteHandler}
         archived
       />
