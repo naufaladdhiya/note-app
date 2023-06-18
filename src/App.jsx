@@ -5,6 +5,7 @@ import Navigation from './pages/navigation.pages';
 import Archieve from './pages/archieve.pages';
 import DetailNote from './pages/note-detail.pages';
 import NoteInput from './pages/note-input.pages';
+import NotFound from './pages/not-found.pages';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/archieve" element={<Archieve />} />
         <Route path="/notes/:id" element={<DetailNote />} />
         <Route path="/notes/new" element={<NoteInput />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
