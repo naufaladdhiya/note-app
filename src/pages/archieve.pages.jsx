@@ -65,14 +65,18 @@ function Archive() {
 
   return (
     <div className="container mx-auto mt-6">
-      <h1 className="text-center text-secondary text-2xl">Catatan Arsip</h1>
+      <h1 className="text-2xl text-center text-secondary">Catatan Arsip</h1>
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
-      <NoteList
-        notes={archivedNotes}
-        onArchive={onUnarchiveHandler}
-        onDelete={onDeleteHandler}
-        archived
-      />
+      {archivedNotes.length === 0 ? (
+        <p className="mt-6 text-2xl text-center text-blue-400">Tidak ada Arsip yang ditemukan...</p>
+      ) : (
+        <NoteList
+          notes={archivedNotes}
+          onArchive={onUnarchiveHandler}
+          onDelete={onDeleteHandler}
+          archived
+        />
+      )}
     </div>
   );
 }

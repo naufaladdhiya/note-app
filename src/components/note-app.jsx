@@ -66,7 +66,7 @@ function NoteApp() {
 
   return (
     <div className="relative">
-      <h2 className="text-center text-2xl text-blue-400">Daftar Catatan</h2>
+      <h2 className="text-2xl text-center text-blue-400">Daftar Catatan</h2>
 
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
       {notes.length > 0 ? (
@@ -77,7 +77,7 @@ function NoteApp() {
           archived={false}
         />
       ) : (
-        <div className="text-center text-2xl text-blue-400 mt-6">
+        <div className="mt-6 text-2xl text-center text-blue-400">
           Tidak ada catatan ditemukan...
         </div>
       )}
