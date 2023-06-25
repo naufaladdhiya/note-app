@@ -2,6 +2,7 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    extend: {},
     container: {
       padding: {
         DEFAULT: '1rem',
@@ -11,10 +12,9 @@ export default {
         '2xl': '6rem',
       },
     },
-    extend: {},
-    daisyui: {
-      themes: ["light"],
-    },
+  },
+  daisyui: {
+    themes: ['light', 'dark'],
   },
   plugins: [require('daisyui')],
 };
