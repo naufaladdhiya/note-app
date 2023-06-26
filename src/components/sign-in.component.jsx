@@ -49,7 +49,7 @@ function SignIn({ login }) {
             </button>
             <p className="mt-3">
               {locale === "id" ? "Belum punya akun?" : "Don't have an account?"}
-              <Link to="/" className="text-blue-400">
+              <Link to="/register" className="text-blue-400">
                 {locale === "id" ? " Daftar" : " Sign Up"}
               </Link>
             </p>
