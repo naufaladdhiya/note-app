@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Proptypes from 'prop-types';
-import ButtonAction from './buttons/button-item.component';
-import showFormattedDate from '../utils/index';
+import React from "react";
+import { Link } from "react-router-dom";
+import Proptypes from "prop-types";
+import ButtonAction from "./buttons/button-item.component";
+import showFormattedDate from "../utils/index";
 
 function NoteItem({
   id,
@@ -14,13 +14,13 @@ function NoteItem({
   archieved,
 }) {
   return (
-    <div className="relative shadow-xl card bg-primary-focus">
+    <div className="relative shadow-xl card bg-[#F7D44C]">
       <div className="flex-grow-0 card-body">
-        <h2 className="card-title text-secondary">
+        <h2 className="font-bold text-black card-title">
           <Link to={`/notes/${id}`}>{title}</Link>
         </h2>
-        <p className="text-warning">{showFormattedDate(createdAt)}</p>
-        <p className="pb-5">{body}</p>
+        <p className="text-slate-500">{showFormattedDate(createdAt)}</p>
+        <p className="pb-5 font-medium text-black">{body}</p>
         <div className="absolute bottom-3 right-6">
           <div className="justify-end text-2xl card-actions">
             <ButtonAction

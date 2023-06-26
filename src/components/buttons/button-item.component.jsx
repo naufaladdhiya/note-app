@@ -1,11 +1,11 @@
-import React from 'react';
-import { BsFillTrashFill } from 'react-icons/bs';
-import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
-import PropTypes from 'prop-types';
+import React, { useContext } from "react";
+import { BsFillTrashFill } from "react-icons/bs";
+import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
+import PropTypes from "prop-types";
+import { LocaleContext } from "../../context/localization.context";
 
-function ButtonAction({
-  id, onDelete, onArchive, archived,
-}) {
+function ButtonAction({ id, onDelete, onArchive, archived }) {
+  const { locale } = useContext(LocaleContext);
   return (
     <div className="flex gap-3">
       <button
@@ -14,13 +14,13 @@ function ButtonAction({
         onClick={() => {
           onDelete(id);
         }}
-        title="Hapus Catatan"
+        title={locale === "id" ? "Hapus catatan" : "Delete note"}
       >
         <BsFillTrashFill />
       </button>
       <div
         className="p-1 bg-green-500 rounded-lg text-slate-500"
-        title="Arsipkan Catatan"
+        title={locale === "id" ? "Arsipkan catatan" : "Archive note"}
       >
         {archived === true ? (
           <button
@@ -29,7 +29,7 @@ function ButtonAction({
             onClick={() => {
               onArchive(id);
             }}
-            title="Aktifkan catatan"
+            title={locale === "id" ? {} : "Archive note"}
           >
             <BiArchiveOut />
           </button>
@@ -40,7 +40,7 @@ function ButtonAction({
             onClick={() => {
               onArchive(id);
             }}
-            title="Arsipkan catatan"
+            title={locale === "id" ? "Arsipkan catatan" : "Archive note"}
           >
             <BiArchiveIn />
           </button>

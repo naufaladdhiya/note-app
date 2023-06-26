@@ -18,7 +18,9 @@ function Login() {
   };
   return (
     <div className="container relative py-5 mx-auto">
-      <h1>Masuk dengan akun</h1>
+      <h1 className="text-3xl font-bold text-center text-white">
+        Masuk dengan akun
+      </h1>
       <SignIn login={signIn} />
     </div>
   );

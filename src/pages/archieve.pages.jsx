@@ -1,61 +1,72 @@
-import { useEffect, useState, React } from 'react';
-import Swal from 'sweetalert2';
+import { useEffect, useState, React, useContext } from "react";
+import Swal from "sweetalert2";
+import { searchNotes } from "../utils/local-data";
 import {
   getArchivedNotes,
-  unarchiveNote,
   deleteNote,
-  searchNotes,
-} from '../utils/local-data';
-import NoteList from '../components/note-list.component';
-import SearchNote from '../components/search-note.component';
+  unarchiveNote,
+} from "../utils/network-data";
+import { LocaleContext } from "../context/localization.context";
+import NoteList from "../components/note-list.component";
+import SearchNote from "../components/search-note.component";
 
 function Archive() {
-  const [archivedNotes, setArchivedNotes] = useState(() => getArchivedNotes());
-  const [keyword, setKeyword] = useState('');
+  const [notes, setNotes] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const { locale } = useContext(LocaleContext);
 
   useEffect(() => {
-    const filteredNotes = searchNotes(getArchivedNotes(), keyword);
-    setArchivedNotes(filteredNotes);
-  }, [keyword]);
+    getArchivedNotes().then(({ data }) => {
+      setNotes(data);
+    });
+  }, []);
+
+  const filteredNotes = searchNotes(notes, keyword);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const searchKeyword = searchParams.get('keyword');
-    setKeyword(searchKeyword || '');
+    const searchKeyword = searchParams.get("keyword");
+    setKeyword(searchKeyword || "");
   }, []);
 
   const onSearchHandler = (e) => {
     setKeyword(e.target.value);
     const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('keyword', e.target.value);
+    searchParams.set("keyword", e.target.value);
     window.history.replaceState(
       {},
-      '',
-      `${window.location.pathname}?${searchParams.toString()}`,
+      "",
+      `${window.location.pathname}?${searchParams.toString()}`
     );
   };
 
-  const onUnarchiveHandler = (id) => {
-    unarchiveNote(id);
-    setArchivedNotes(getArchivedNotes(id));
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Catatan berhasil diaktifkan',
-      width: 300,
-      toast: true,
-      showConfirmButton: false,
-      timer: 1500,
-    });
+  const onUnarchiveHandler = async (id) => {
+    try {
+      await unarchiveNote(id);
+      getArchivedNotes().then(({ data }) => {
+        setNotes(data);
+      });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Catatan berhasil diaktifkan",
+        width: 300,
+        toast: true,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
   };
 
   const onDeleteHandler = (id) => {
     deleteNote(id);
-    setArchivedNotes(getArchivedNotes(id));
+    setNotes(getArchivedNotes(id));
     Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Catatan berhasil dihapus',
+      position: "top-end",
+      icon: "success",
+      title: "Catatan berhasil dihapus",
       width: 300,
       toast: true,
       showConfirmButton: false,
@@ -65,18 +76,16 @@ function Archive() {
 
   return (
     <div className="container mx-auto mt-6">
-      <h1 className="text-2xl text-center text-secondary">Catatan Arsip</h1>
+      <h1 className="text-3xl font-bold text-center text-white">
+        {locale === "en" ? "Archieve List" : "Daftar Arsip"}
+      </h1>
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
-      {archivedNotes.length === 0 ? (
-        <p className="mt-6 text-2xl text-center text-blue-400">Tidak ada Arsip yang ditemukan...</p>
-      ) : (
-        <NoteList
-          notes={archivedNotes}
-          onArchive={onUnarchiveHandler}
-          onDelete={onDeleteHandler}
-          archived
-        />
-      )}
+      <NoteList
+        notes={filteredNotes}
+        onArchive={onUnarchiveHandler}
+        onDelete={onDeleteHandler}
+        archived
+      />
     </div>
   );
 }

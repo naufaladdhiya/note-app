@@ -1,16 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import { LocaleContext } from "../context/localization.context";
 
 function SearchNote({ onChangeHandler, keyword }) {
+  const { locale } = useContext(LocaleContext);
   return (
     <div className="input-note">
       <input
         type="text"
-        placeholder="Temukan catatan..."
-        className="input input-bordered input-md input-primary w-full max-w-7xl mt-3"
+        placeholder={locale === "id" ? "Cari catatan..." : "Search note..."}
+        className="w-full mt-3 input input-bordered input-md input-primary max-w-7xl"
         onChange={onChangeHandler}
         value={keyword}
-        title="Cari Catatan"
+        title={locale === "id" ? "Cari catatan..." : "Search note..."}
       />
     </div>
   );
