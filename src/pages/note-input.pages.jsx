@@ -1,16 +1,17 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AiFillCheckCircle } from "react-icons/ai";
 import useInput from "../hooks/useInput";
 import { LocaleContext } from "../context/localization.context";
+import { ThemeContext } from "../context/theme.context";
 import { addNote } from "../utils/network-data";
 
 function NoteInput() {
   const [title, setChangeTitle] = useInput();
   const [content, setContent] = useState("");
   const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
   const formRef = useRef(null);
   const navigate = useNavigate();
 
@@ -40,7 +41,13 @@ function NoteInput() {
 
   return (
     <div className="container items-center justify-center mx-auto mt-6">
-      <h1 className="text-3xl font-bold text-center text-white">
+      <h1
+        className={
+          theme === "dark"
+            ? "text-3xl font-bold text-center text-white"
+            : "text-3xl font-bold text-center text-black"
+        }
+      >
         {locale === "en" ? "Add Note" : "Tambah Catatan"}
       </h1>
       <form

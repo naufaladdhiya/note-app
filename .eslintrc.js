@@ -18,5 +18,6 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
     "no-alert": "off",
+    "object-shorthand": "off",
   },
 };

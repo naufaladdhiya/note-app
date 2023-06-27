@@ -5,20 +5,25 @@ import { searchNotes } from "../utils/local-data";
 import { getActiveNotes, deleteNote, archiveNote } from "../utils/network-data";
 import SearchNote from "./search-note.component";
 import NoteList from "./note-list.component";
+import { ThemeContext } from "../context/theme.context";
 import HomeAction from "./buttons/button-home-action.component";
+import onLoading from "./onLoading";
 
 function NoteApp() {
   const [notes, setNotes] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
+    setLoading(true);
     getActiveNotes().then(({ data }) => {
       setNotes(data);
+      setLoading(false);
     });
   }, []);
 
-  function onSearch() {}
 
   const filteredNotes = searchNotes(notes, keyword);
 
@@ -82,17 +87,27 @@ function NoteApp() {
 
   return (
     <div className="relative">
-      <h2 className="text-3xl font-bold text-center text-white">
+      <h2
+        className={
+          theme === "dark"
+            ? "text-3xl font-bold text-center text-white"
+            : "text-3xl font-bold text-center text-black"
+        }
+      >
         {locale === "en" ? "Notes List" : "Daftar Catatan"}
       </h2>
 
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
-      <NoteList
-        notes={filteredNotes}
-        onDelete={onDeleteHandler}
-        onArchive={onArchiveHandler}
-        archived={false}
-      />
+      {loading ? (
+        onLoading()
+      ) : (
+        <NoteList
+          notes={filteredNotes}
+          onDelete={onDeleteHandler}
+          onArchive={onArchiveHandler}
+          archived={false}
+        />
+      )}
       <div className="absolute bottom-2 right-2">
         <HomeAction />
       </div>

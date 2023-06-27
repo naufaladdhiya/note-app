@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, createContext } from "react";
 import PropTypes from "prop-types";
 
-const LocaleContext = React.createContext({
+const LocaleContext = createContext({
   locale: null,
   setLocale: () => {},
   toggleLocale: () => {},

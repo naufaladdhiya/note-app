@@ -7,17 +7,23 @@ import {
   unarchiveNote,
 } from "../utils/network-data";
 import { LocaleContext } from "../context/localization.context";
+import { ThemeContext } from "../context/theme.context";
 import NoteList from "../components/note-list.component";
+import onLoading from "../components/onLoading";
 import SearchNote from "../components/search-note.component";
 
 function Archive() {
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState("");
   const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
+    setLoading(true);
     getArchivedNotes().then(({ data }) => {
       setNotes(data);
+      setLoading(false);
     });
   }, []);
 
@@ -76,16 +82,26 @@ function Archive() {
 
   return (
     <div className="container mx-auto mt-6">
-      <h1 className="text-3xl font-bold text-center text-white">
+      <h1
+        className={
+          theme === "dark"
+            ? "text-3xl font-bold text-center text-white"
+            : "text-3xl font-bold text-center text-black"
+        }
+      >
         {locale === "en" ? "Archieve List" : "Daftar Arsip"}
       </h1>
       <SearchNote onChangeHandler={onSearchHandler} keyword={keyword} />
-      <NoteList
-        notes={filteredNotes}
-        onArchive={onUnarchiveHandler}
-        onDelete={onDeleteHandler}
-        archived
-      />
+      {loading ? (
+        onLoading()
+      ) : (
+        <NoteList
+          notes={filteredNotes}
+          onArchive={onUnarchiveHandler}
+          onDelete={onDeleteHandler}
+          archived
+        />
+      )}
     </div>
   );
 }

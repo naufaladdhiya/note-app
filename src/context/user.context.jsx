@@ -1,8 +1,8 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, createContext } from "react";
 import PropTypes from "prop-types";
 import { getUserLogged } from "../utils/network-data";
 
-const UserContext = React.createContext({
+const UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => {},
 });
@@ -26,7 +26,7 @@ function UserProvider({ children }) {
       });
     }
     getUser();
-}, []);
+  }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

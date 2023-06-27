@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useContext } from "react";
 import { UserContext } from "../context/user.context";
 import NoteApp from "../components/note-app";
