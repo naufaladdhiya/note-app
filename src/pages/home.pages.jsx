@@ -5,6 +5,7 @@ import Login from "./login.pages";
 
 function Home() {
   const { currentUser } = useContext(UserContext);
+
   return (
     <div className="container relative py-5 mx-auto">
       {currentUser ? <NoteApp /> : <Login />}

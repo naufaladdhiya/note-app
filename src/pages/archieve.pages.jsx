@@ -66,18 +66,24 @@ function Archive() {
     }
   };
 
-  const onDeleteHandler = (id) => {
-    deleteNote(id);
-    setNotes(getArchivedNotes(id));
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Catatan berhasil dihapus",
-      width: 300,
-      toast: true,
-      showConfirmButton: false,
-      timer: 1500,
-    });
+  const onDeleteHandler = async (id) => {
+    try {
+      await deleteNote(id);
+      getArchivedNotes().then(({ data }) => {
+        setNotes(data);
+      });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Catatan berhasil dihapus",
+        width: 300,
+        toast: true,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
   };
 
   return (

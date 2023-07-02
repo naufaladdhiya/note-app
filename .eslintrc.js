@@ -19,5 +19,6 @@ module.exports = {
     "no-shadow": "off",
     "no-alert": "off",
     "object-shorthand": "off",
+    "no-array-index-key": "off",
   },
 };
